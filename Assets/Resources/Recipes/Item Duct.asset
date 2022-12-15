@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa229411390e7455181dcb6f8baaa6fa, type: 3}
-  m_Name: Copper
+  m_Script: {fileID: 11500000, guid: cd14ce652053a4656b27c48e8a2b2587, type: 3}
+  m_Name: Item Duct
   m_EditorClassIdentifier: 
-  id: Copper
-  displayName: Copper
-  m_Sprite: {fileID: 21300000, guid: ee42aa4eccaca653698d27236fd2d882, type: 3}
-  m_Place: {fileID: 0}
+  m_Input: []
+  m_Output:
+    id: 
+    count: 0

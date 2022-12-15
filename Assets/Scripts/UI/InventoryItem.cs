@@ -31,7 +31,7 @@ namespace Game.UI
                 transform.localScale = Vector3.one * 1.1f;
             }
             else transform.localScale = Vector3.one;
-            var stack = inv.target.items[slot];
+            var stack = inv.target.Items[slot];
             m_Image.enabled = stack.count > 0;
             if (m_Image.enabled) m_Image.sprite = stack.Info.Sprite;
             m_CountText.enabled = m_Image.enabled;

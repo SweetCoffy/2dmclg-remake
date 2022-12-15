@@ -2834,7 +2834,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904cb47bc9da533f08c5a2c017c2bb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
+  m_StartingItems:
+  - id: Pickaxe
+    count: 1
   capacity: 16
   canRearrange: 1
   filter: 0

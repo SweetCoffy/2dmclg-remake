@@ -27,7 +27,7 @@ namespace Game.Buildings
                 float t = 1 - Mathf.Clamp01(time / (1 / m_Speed));
                 m_ItemRenderer.transform.localPosition = Vector2.right * t;
                 m_ItemRenderer.enabled = true;
-                m_ItemRenderer.sprite = Container.items[0].Info.Sprite;
+                m_ItemRenderer.sprite = Container.Items[0].Info.Sprite;
             }
             if (Time.fixedTime > nextItem)
             {

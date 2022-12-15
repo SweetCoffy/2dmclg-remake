@@ -35,7 +35,8 @@ namespace Game.Items
 
     public class ItemContainer : MonoBehaviour
     {
-        public ItemStack[] items;
+        [SerializeField] ItemStack[] m_StartingItems;
+        public ItemStack[] Items { get; private set; }
         public static int stackSize = 256;
         public int capacity = 16;
         public bool canRearrange = false;
@@ -46,22 +47,24 @@ namespace Game.Items
         {
             get
             {
-                return !items.Any(stack => !stack.IsEmpty);
+                return !Items.Any(stack => !stack.IsEmpty);
             }
         }
         public virtual void Start()
         {
-            items = new ItemStack[capacity];
+            Items = new ItemStack[capacity];
             for (int i = 0; i < capacity; i++)
             {
-                items[i] = new ItemStack(string.Empty, 0);
+                Items[i] = new ItemStack(string.Empty, 0);
             }
+            if (m_StartingItems != null)
+                foreach (var item in m_StartingItems) AddItem(item);
         }
         public int GetItemIndex(string id)
         {
             for (int i = 0; i < capacity; i++)
             {
-                var stack = items[i];
+                var stack = Items[i];
                 if (stack.id == id && stack.count > 0) return i;
             }
             return -1;
@@ -71,7 +74,7 @@ namespace Game.Items
             if (filter) return -1;
             for (int i = 0; i < capacity; i++)
             {
-                var stack = items[i];
+                var stack = Items[i];
                 if (stack.count <= 0 || stack.id == string.Empty) return i;
             }
             return -1;
@@ -80,19 +83,19 @@ namespace Game.Items
         {
             int idx = GetItemIndex(stack.id);
             if (idx == -1) return ItemStack.Empty(stack.id);
-            var storedStack = items[idx];
+            var storedStack = Items[idx];
             if (storedStack.count < stack.count) return ItemStack.Empty(stack.id);
-            items[idx] = storedStack - stack.count;
+            Items[idx] = storedStack - stack.count;
             return stack;
         }
         public ItemStack TakeFirstItem(int amt)
         {
             for (int i = 0; i < capacity; i++)
             {
-                ItemStack stack = items[i];
+                ItemStack stack = Items[i];
                 if (stack.IsEmpty) continue;
                 ItemStack take = new ItemStack(stack.id, Mathf.Min(stack.count, amt));
-                items[i] = stack - take;
+                Items[i] = stack - take;
                 return take;
             }
             return ItemStack.Empty(string.Empty);
@@ -104,24 +107,24 @@ namespace Game.Items
             {
                 idx = FindFreeSlot();
                 if (idx == -1) return stack;
-                items[idx] = ItemStack.Empty(stack.id);
+                Items[idx] = ItemStack.Empty(stack.id);
             }
-            var storedStack = items[idx];
+            var storedStack = Items[idx];
             if (storedStack.count + stack.count > stackSize) return stack;
-            items[idx] = storedStack + stack.count;
+            Items[idx] = storedStack + stack.count;
             return ItemStack.Empty(stack.id);
         }
         public bool HasItem(string id, int count = 1)
         {
             int idx = GetItemIndex(id);
-            return idx != -1 && items[idx].count >= count;
+            return idx != -1 && Items[idx].count >= count;
         }
         public void Swap(int a, int b)
         {
             if (!canRearrange) return;
-            ItemStack temp = items[a];
-            items[a] = items[b];
-            items[b] = temp;
+            ItemStack temp = Items[a];
+            Items[a] = Items[b];
+            Items[b] = temp;
         }
     }
 }

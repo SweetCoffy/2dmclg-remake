@@ -10,15 +10,13 @@ namespace Game.Player
         public int SelectedSlot { get; private set; }
         public ItemStack SelectedStack
         {
-            get => items[SelectedSlot];
+            get => Items[SelectedSlot];
         }
         protected PlayerInput input;
         public override void Start()
         {
             base.Start();
             input = GetComponent<PlayerInput>();
-            AddItem(new ItemStack("Pickaxe", 1));
-            AddItem(new ItemStack("Copper", 128));
             input.OnDrop += OnDrop;
             input.OnUse += OnUse;
         }

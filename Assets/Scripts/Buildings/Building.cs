@@ -89,7 +89,7 @@ namespace Game.Buildings
             if (!IsAlive) return;
             if (Container)
             {
-                foreach (var stack in Container.items)
+                foreach (var stack in Container.Items)
                 {
                     if (stack.IsEmpty) continue;
                     ItemManager.SpawnDrop(Position, stack);
